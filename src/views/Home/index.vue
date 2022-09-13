@@ -2,6 +2,12 @@
   <Header />
   <section class="w-4/5 mx-auto">
     <card-content
+      v-for="(articles, index) in this.articles" :key="index"
+      :title="articles.title"
+      :imageUrl="articles.imageUrl"
+      :publishedAt="articles.publishedAt"
+      :newsSite="articles.newsSite"
+      :summary="articles.summary"
       @modalNews="handleNews"
     />
   </section>
@@ -32,6 +38,11 @@ export default {
 
     return {
       handleNews
+    }
+  },
+  computed: {
+    articles () {
+      return this.$store.state.articles
     }
   }
 }

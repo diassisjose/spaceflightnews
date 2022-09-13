@@ -3,21 +3,18 @@
     <div
       class="flex-none w-2/5"
     >
-      <img class="object-cover w-full h-72" src="../../assets/images/image.jpg" alt="logo">
+      <img class="object-cover w-full h-64" :src="imageUrl" alt="logo">
     </div>
     <div class="w-3/5 pt-4 pl-10 space-y-2">
-      <h3 class="text-4xl font-brandBold">Lorem ipsum dolor sit.</h3>
+      <h3 class="text-3xl font-brandBold">{{ title }}</h3>
       <div class="flex justify-between">
-        <span class="py-1 text-sm">dd/mm/yyyy</span>
-        <span class="px-4 py-1 text-white bg-brand-main">NewSite</span>
+        <span class="py-1 text-sm">{{ publishedDate }}</span>
+        <span class="px-4 py-1 text-sm text-white bg-brand-main">{{ newsSite }}</span>
       </div>
-      <p class="text-xl">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi asperiores quibusdam aspernatur expedita optio,
-        quam alias aliquid blanditiis. Quis officia dicta possimus velit.
-      </p>
+      <p class="text-md">{{ summaryReduced }}...  </p>
       <div class="flex">
         <button
-          class="px-8 py-3 text-white transition rounded bg-brand-info hover:bg-brand-main"
+          class="px-8 py-3 text-sm text-white transition rounded bg-brand-info hover:bg-brand-main"
           @click="() => emit('modalNews')"
         >
           Ver mais
@@ -29,8 +26,24 @@
 <script>
 
 export default {
+  props: [
+    'imageUrl',
+    'title',
+    'publishedAt',
+    'newsSite',
+    'summary'
+  ],
   setup (_, { emit }) {
     return { emit }
+  },
+  computed: {
+    summaryReduced () {
+      return this.summary.substring(0, 120)
+    },
+    publishedDate () {
+      const date = this.publishedAt.substring(0, 10)
+      return date.split('-').reverse().join('/')
+    }
   }
 }
 </script>
